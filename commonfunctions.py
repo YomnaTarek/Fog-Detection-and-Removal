@@ -24,10 +24,19 @@ from matplotlib import cm
 from matplotlib.ticker import LinearLocator, FormatStrFormatter
 import numpy as np
 import cv2
+from skimage.util import random_noise,img_as_float,img_as_ubyte
 
 from skimage.morphology import erosion, binary_erosion, binary_dilation, binary_closing, binary_opening
 # Edges
 from skimage.filters import sobel_h, sobel, sobel_v,roberts, prewitt
+import math
+import skimage.io as io
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.signal import convolve2d
+from skimage.transform  import (hough_line, hough_line_peaks)
+from skimage.draw import line
+from skimage.feature import blob_dog, blob_log, blob_doh
 
 # Show the figures / plots inside the notebook
 def show_images(images,titles=None):
