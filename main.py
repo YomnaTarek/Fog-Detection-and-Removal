@@ -35,7 +35,7 @@ def pipeline_execution():
         
         return res, yVanishing,yAvg, degree_of_fog, defogged_img_guided, defogged_img_gaussian, defogged_img_built_in_bilateral,white_patch_img,gray_world_img, ground_truth_img_mean, ground_truth_img_max
     else:
-        return res , 0,0,0,np.zeros([6,6]),np.zeros([6,6]),np.zeros([6,6]),np.zeros([6,6]),np.zeros([6,6])
+        return res , 0,0,0,np.zeros([6,6]),np.zeros([6,6]),np.zeros([6,6]),np.zeros([6,6]),np.zeros([6,6]),np.zeros([6,6]),np.zeros([6,6])
 
 if image_name:
     img = io.imread(directory_path+"/"+image_name)
