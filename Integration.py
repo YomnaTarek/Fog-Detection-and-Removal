@@ -373,76 +373,56 @@ def RecoverSceneRadiance(img, atmosphericLight, refined_img, t0):
     
     return recovered_img
 
-def white_patch(image, percentile=100):
+
+def white_patch(image, percentile=90):
     """
     White balance image using White patch algorithm
     Parameters
     ----------
-    image : numpy array
-            Image to white balance
     percentile : integer, optional
                   Percentile value to consider as channel maximum
     clip: any value less than 0 becomes zero and any value bigger than 1 is 1
 
     """
-    white_patch_image = img_as_ubyte((image*1.0 / np.percentile(image,percentile,axis=(0, 1))).clip(0, 1))
+    white_patch_image = img_as_ubyte((image / np.percentile(image,percentile)).clip(0, 1))
     return white_patch_image
+
 
 def gray_world(image):
     """
     White balance image using Gray-world algorithm
-    Parameters
-    ----------
-    image : numpy array
-            Image to white balance
-    505050 is a shade of gray
-    
     
     """
-    image_grayworld = ((image * (image.mean() / 
-                      image.mean(axis=(0,1)))).
-                      clip(0,255).astype(int))
-    # for images having a transparency channel
+    grey=io.imread("color restoration testcases/grey.png")
+
+    image_grayworld = ((image * (grey.mean() / image.mean())).clip(0,255).astype(int))
+                      
+                
     
     if image.shape[2] == 4:
         image_grayworld[:,:,3] = 255
     return image_grayworld
-
-
-def addPatch(img):
-    fig, ax = plt.subplots()
-    ax.imshow(img)
-    ax.add_patch(Rectangle((450, 550), 100, 100, edgecolor='b', facecolor='none'))
 
 def ground_truth(image, x, y, mode='mean'):   
     """
     White balance image using Ground-truth algorithm
     Parameters
     ----------
-    image : numpy array
-           Image to white balancr
     x & y : image patch starting dimensions 
+    
     mode : mean or max, optional
           Adjust mean or max of each channel to match patch
-  
-    Returns
-    -------
-   
-    image_wb : numpy array
-              White-balanced image
     """
-    x1=x+100
-    y1=y+100
-    image_patch = image[x:x1,y:y1]
+    image_patch = image[x:x+100,y:y+100]
+    
     if mode == 'mean':
-        image_gt = ((image * (image_patch.mean() / \
-                   image.mean(axis=(0, 1))))\
-                   .clip(0, 255)\
-                   .astype(int))
+        image_gt = ((image * (image_patch.mean() /image.mean(axis=(0,1)))).clip(0, 255).astype(int))
+                       
+                   
     if mode == 'max':
-        image_gt = ((image * 1.0 / image_patch.max(axis=
-                    (0,1))).clip(0, 1))
-    #transparency channel
+        image_gt = ((image * 1.0 / image_patch.max(axis=(0,1))).clip(0, 1))
+                    
+    
     if image.shape[2] == 4:
         image_gt[:,:,3] = 255
     return image_gt

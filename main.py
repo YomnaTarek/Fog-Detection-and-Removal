@@ -6,7 +6,7 @@ import streamlit as st
 directory_path = "./Fog detection testcases"
 images = os.listdir(directory_path)
 image_name = st.sidebar.selectbox("Select an image:",["1.jpeg", "2.jpeg", "4.jpeg", "f1.jpg", "f3.jpg", "f5.jpg","f6.jpg","f7.jpg","f8.jpg","f9.jpg", "s1.jpeg", "s2.jpeg","s3.jpeg"
-,"s4.jpeg","s5.jpg","s6.jpg","s7.jpg","s8.jpg","f10.jpg", "f11.jpg","f15.jpg"], index=0)
+,"s4.jpeg","s5.jpg","s6.jpg","s7.jpg","s8.jpg","f10.jpg", "f11.jpg","f15.jpg", "f2.jpg"], index=0)
 
 
 @st.cache
