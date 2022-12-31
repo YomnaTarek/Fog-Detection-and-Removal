@@ -384,7 +384,7 @@ def white_patch(image, percentile=90):
     clip: any value less than 0 becomes zero and any value bigger than 1 is 1
 
     """
-    white_patch_image = img_as_ubyte((image / np.percentile(image,percentile,axis=(0,1))).clip(0, 1))
+    white_patch_image = img_as_ubyte((image / np.percentile(image,percentile)).clip(0, 1))
     return white_patch_image
 
 
@@ -393,8 +393,6 @@ def gray_world(image):
     image[0] = np.minimum(image[0]*(np.average(image[1])/np.average(image[0])),255)
     image[2] = np.minimum(image[2]*(np.average(image[1])/np.average(image[2])),255)
     
-    # if image.shape[2] == 4:
-    #     image_gt[:,:,3] = 255
     return  image.transpose(1, 2, 0).astype(np.uint8)
 
 def ground_truth(image, x, y, mode='mean'):   
